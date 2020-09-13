@@ -14,12 +14,25 @@
 
 """
 
-def main():
+def main(age):
     """
     Эта функция вызывается автоматически при запуске скрипта в консоли
     В ней надо заменить pass на ваш код
     """
-    pass
+    if age in range(0, 6):
+        work_suggest = "Вас должны водить в сад"
+    elif age in range(6, 17):
+        work_suggest = "Вы должны учиться в школе"
+    elif age in range(17, 23):
+        work_suggest = "Вы должны учиться в ВУЗе"
+    elif age in range(23, 123):
+        work_suggest = "Вы должны работать"
+    else:
+        work_suggest = "Ваш возраст некорректен, попробуйте еще раз."
+    return work_suggest
+
 
 if __name__ == "__main__":
-    main()
+    age = int(input("Введите ваш возраст в годах: "))
+    result = main(age)
+    print(result)
