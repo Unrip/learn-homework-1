@@ -14,7 +14,6 @@ def ask_user():
     """
     Замените pass на ваш код
     """
-
     while True:
         answer = input('Как дела? \nОтвет: ')
         if answer.lower() == 'хорошо':
@@ -22,8 +21,6 @@ def ask_user():
             break
         else:
             print("Хочу, чтобы были хорошо)")
-            ask_user()
-            break
 
     
 if __name__ == "__main__":
