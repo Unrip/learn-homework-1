@@ -37,7 +37,7 @@ def talk_to_me(update, context):
 
 
 def planet_constellation(update, context):
-    today = str(datetime.date.today()).replace('-', '/')
+    today = datetime.date.today().strftime("%Y/%m/%d")
     user_text = update.message.text
     _, user_planet = user_text.split()
     if user_planet == 'Mars':
