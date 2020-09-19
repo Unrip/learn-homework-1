@@ -9,12 +9,30 @@
   и завершала работу при помощи оператора break
     
 """
+QnAs = {"Как дела": "Хорошо!",
+        "Что делаешь?": "Программирую",
+        "Саня, ты в порядке?": "Да",
+        "Главный вопрос жизни, вселенной и всего такого": "42"}
 
-def ask_user():
+
+def ask_user_dict():
     """
     Замените pass на ваш код
     """
-    pass
-    
+    while True:
+        try:
+            question = input('Задай мне вопрос: ')
+            if question in QnAs:
+              print(QnAs[question])
+            elif question.lower() == 'не хочу':
+                print('Ну и ладно :(')
+                break
+            else:
+                print("У меня нет ответа")
+        except KeyboardInterrupt:
+            print("Пока!")
+            break
+
+
 if __name__ == "__main__":
-    ask_user()
+    ask_user_dict()
