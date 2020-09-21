@@ -13,43 +13,55 @@
 
 """
 import logging
-
+import settings
+import ephem
+import datetime
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO,
                     filename='bot.log'
-)
+                    )
+
+planets = {'Mars': ephem.Mars,
+           'Venus': ephem.Venus,
+           'Saturn': ephem.Saturn}
 
 
-PROXY = {
-    'proxy_url': 'socks5://t1.learn.python.ru:1080',
-    'urllib3_proxy_kwargs': {
-        'username': 'learn', 
-        'password': 'python'
-    }
-}
-
-
-def greet_user(bot, update):
+def greet_user(update, context):
     text = 'Вызван /start'
     print(text)
     update.message.reply_text(text)
 
 
-def talk_to_me(bot, update):
+def talk_to_me(update, context):
     user_text = update.message.text 
     print(user_text)
     update.message.reply_text(user_text)
+
+
+def planet_constellation(update, context):
+    today = datetime.date.today().strftime("%Y/%m/%d")
+    user_text = update.message.text
+    _, user_planet = user_text.split()
+    if user_planet in planets:
+        planet = planets[user_planet](today)
+    try:
+        constellation = ephem.constellation(planet)
+        update.message.reply_text(f'{user_planet} in constellation {constellation}')
+    except UnboundLocalError:
+        update.message.reply_text(f'We have no data for "{user_planet}"')
  
 
 def main():
-    mybot = Updater("КЛЮЧ, КОТОРЫЙ НАМ ВЫДАЛ BotFather", request_kwargs=PROXY)
+    mybot = Updater(settings.API_KEY, use_context=True, request_kwargs=settings.PROXY)
     
     dp = mybot.dispatcher
     dp.add_handler(CommandHandler("start", greet_user))
+    dp.add_handler(CommandHandler("planet", planet_constellation))
     dp.add_handler(MessageHandler(Filters.text, talk_to_me))
-    
+
+    logging.info('Бот стартовал')
     mybot.start_polling()
     mybot.idle()
        
