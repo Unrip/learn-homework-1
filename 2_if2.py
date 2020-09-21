@@ -21,16 +21,17 @@ def main(first_string, second_string):
     Эта функция вызывается автоматически при запуске скрипта в консоли
     В ней надо заменить pass на ваш код
     """
+    answer = 0
     if isinstance(first_string, str) and isinstance(second_string, str):
         if first_string == second_string:
-            return 1
+            answer = 1
         elif second_string == 'learn':
-            return 3
+            answer = 3
         elif len(first_string) > len(second_string):
-            return 2
+            answer = 2
         else:
-            return 'нет такого варианта'
-    return 0
+            answer = 'нет такого варианта'
+    return answer
 
 
 if __name__ == "__main__":

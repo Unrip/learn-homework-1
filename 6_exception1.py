@@ -22,16 +22,17 @@ def ask_user_dict():
     while True:
         try:
             question = input('Задай мне вопрос: ')
-            if question in QnAs:
-              print(QnAs[question])
-            elif question.lower() == 'не хочу':
-                print('Ну и ладно :(')
-                break
-            else:
-                print("У меня нет ответа")
         except KeyboardInterrupt:
-            print("Пока!")
+            print("\nПока!")
             break
+
+        if question in QnAs:
+            print(QnAs[question])
+        elif question.lower() == 'не хочу':
+            print('Ну и ладно :(')
+            break
+        else:
+            print("У меня нет ответа")
 
 
 if __name__ == "__main__":

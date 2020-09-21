@@ -18,12 +18,11 @@ def main(classes_scores):
     """
     students_num = 0
     school_scores_sum = 0
+
     for cls in classes_scores:
-        scores_sum = 0
-        for score in cls['scores']:
-            scores_sum += score
-            school_scores_sum += score
-            students_num += 1
+        scores_sum = sum(cls['scores'])
+        school_scores_sum += sum(cls['scores'])
+        students_num += len(cls['scores'])
         scores_class_avg = scores_sum / len(cls['scores'])
         print(f"Средняя оценка {cls['school_class']} класса - {scores_class_avg}")
     school_scores_avg = school_scores_sum / students_num

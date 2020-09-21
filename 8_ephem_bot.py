@@ -23,6 +23,10 @@ logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s',
                     filename='bot.log'
                     )
 
+planets = {'Mars': ephem.Mars,
+           'Venus': ephem.Venus,
+           'Saturn': ephem.Saturn}
+
 
 def greet_user(update, context):
     text = 'Вызван /start'
@@ -40,12 +44,8 @@ def planet_constellation(update, context):
     today = datetime.date.today().strftime("%Y/%m/%d")
     user_text = update.message.text
     _, user_planet = user_text.split()
-    if user_planet == 'Mars':
-        planet = ephem.Mars(today)
-    elif user_planet == 'Venus':
-        planet = ephem.Venus(today)
-    elif user_planet == 'Saturn':
-        planet = ephem.Saturn(today)
+    if user_planet in planets:
+        planet = planets[user_planet](today)
     try:
         constellation = ephem.constellation(planet)
         update.message.reply_text(f'{user_planet} in constellation {constellation}')
